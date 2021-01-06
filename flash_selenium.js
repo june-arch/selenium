@@ -3,7 +3,7 @@ const webdriver = require('selenium-webdriver'),
     until = webdriver.until;
 
 async function main () {
-    const timeout = 20000;
+    const timeout = 1000000;
 
     const driver = new webdriver.Builder()
     .forBrowser('chrome')
@@ -78,6 +78,8 @@ async function main () {
                 await driver.wait(waitUntilVisible('kab'), timeout);
                 await loopKab('kab');
             }else{
+                let elementSubsektor = await driver.findElement({xpath : `//select[@id="${value}"]/option[@value="${optionValue}"]`})
+                await elementSubsektor.click();
                 await dropdownYear();
             }
         }
