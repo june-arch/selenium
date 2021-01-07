@@ -3,6 +3,7 @@ const webdriver = require('selenium-webdriver'),
     until = webdriver.until;
 
 async function main () {
+    // Hallo new world !!
     const timeout = 1000000;
 
     const driver = new webdriver.Builder()
