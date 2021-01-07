@@ -56,28 +56,28 @@ async function main () {
         let optionArray = await webElement.findElements(By.tagName('option'));
         for(let i=1; i<optionArray.length; i++){
             let optionValue = await optionArray[i].getAttribute('value');
-            if(optionValue != 01){
+            if(optionValue == 01){
+                await dropdownYear();
+            }else{
                 let elementSubsektor = await driver.findElement({xpath : `//select[@id="${value}"]/option[@value="${optionValue}"]`})
                 await elementSubsektor.click();
                 await driver.wait(waitUntilVisible('prov'), timeout);
-                await loopProv('prov');
-            }else{
-                await dropdownYear();
+                await loopProv('prov',optionValue);
             }
         } 
     }
     
-    async function loopProv (value) {
+    async function loopProv (value, level) {
         let webElement = await driver.findElement({xpath: `//*[@name="${value}"]`});
         let optionArray = await webElement.findElements(By.tagName('option'));
         for(let i=1; i<optionArray.length; i++){
             let optionValue = await optionArray[i].getAttribute('value');
-            if(optionValue == 03 ){
+            if(level == 03 ){
                 let elementSubsektor = await driver.findElement({xpath : `//select[@id="${value}"]/option[@value="${optionValue}"]`})
                 await elementSubsektor.click();
                 await driver.wait(waitUntilVisible('kab'), timeout);
                 await loopKab('kab');
-            }else{
+            }else {
                 let elementSubsektor = await driver.findElement({xpath : `//select[@id="${value}"]/option[@value="${optionValue}"]`})
                 await elementSubsektor.click();
                 await dropdownYear();
